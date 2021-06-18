@@ -1,0 +1,66 @@
+version: '3.8'
+services:
+  db:
+    image: mariadb
+    container_name: wp_mariadb
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_wordpress
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin123
+    volumes:
+      - db:/var/lib/mysql
+    networks:
+      wp-network:
+        ipv4_address: 172.0.0.10
+
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: wp_phpmyadmin
+    restart: always
+    ports:
+      - 8080:8080
+    environment:
+      PMA_ARBITRARY: 1
+      PMA_HOST: db
+      PMA_USER: admin
+      PMA_PASSWORD: admin123
+      MYSQL_ROOT_PASSWORD: root
+    links:
+      - db
+    networks:
+      wp-network:
+        ipv4_address: 172.0.0.15
+
+  wordpress:
+    image: wordpress
+    container_name: wp_wordpress
+    restart: always
+    ports:
+      - 80:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: admin
+      WORDPRESS_DB_PASSWORD: admin123
+      WORDPRESS_DB_NAME: db_wordpress
+    depends_on:
+      - db
+    volumes:
+      - ./src:/var/www/html
+    networks:
+      wp-network:
+        ipv4_address: 172.0.0.20
+
+networks:
+  wp-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.0.0.0/24
+          gateway: 172.0.0.1
+
+volumes:
+  db:
