@@ -1,0 +1,4 @@
+#!/bin/bash
+docker start wp_mariadb
+docker start wp_phpmyadmin
+docker start wp_php

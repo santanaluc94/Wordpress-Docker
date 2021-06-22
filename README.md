@@ -14,33 +14,33 @@ Projeto desenvolvido com fins de estudos de docker.
 Para **instalar** todo o ambiente é necessário somente um passo:
 
 ```sh
-bin/install.sh
+bin/install
 ```
 
 > Assim que a instalação é concluída o projeto já inicia automaticamente.
 
-Para **parar** o projeto:
+Para **parar** os contêiners do projeto:
 
 ```sh
-bin/stop.sh
+bin/stop
 ```
 
-Para **iniciar** o projeto:
+Para **iniciar** os contêiners do projeto:
 
 ```sh
-bin/start.sh
+bin/start
 ```
 
-Para **reiniciar** o projeto:
+Para **reiniciar** os contêiners do projeto:
 
 ```sh
-bin/restart.sh
+bin/restart
 ```
 
 Para **deletar** o projeto:
 
 ```sh
-bin/kill.sh
+bin/kill
 ```
 
 > Este comando inclui as seguintes funções:

@@ -5,9 +5,9 @@ services:
     container_name: wp_mariadb
     restart: always
     ports:
-      - "3306:3306"
+      - 3306:3306
     environment:
-      MYSQL_RANDOM_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: db_wordpress
       MYSQL_USER: admin
       MYSQL_PASSWORD: admin123
@@ -31,13 +31,15 @@ services:
       MYSQL_ROOT_PASSWORD: root
     links:
       - db
+    depends_on:
+      - db
     networks:
       wp-network:
         ipv4_address: 172.0.0.15
 
-  wordpress:
+  php:
     image: wordpress
-    container_name: wp_wordpress
+    container_name: wp_php
     restart: always
     ports:
       - 80:80
@@ -46,10 +48,12 @@ services:
       WORDPRESS_DB_USER: admin
       WORDPRESS_DB_PASSWORD: admin123
       WORDPRESS_DB_NAME: db_wordpress
-    depends_on:
-      - db
     volumes:
       - ./src:/var/www/html
+    links:
+      - db
+    depends_on:
+      - db
     networks:
       wp-network:
         ipv4_address: 172.0.0.20
