@@ -1,4 +1,4 @@
 #!/bin/bash
-docker start wp_mariadb
-docker start wp_phpmyadmin
-docker start wp_php
+docker stop wp_mariadb
+docker stop wp_phpmyadmin
+docker stop wp_php
